@@ -10,6 +10,7 @@ use Hal\Component\File\Finder;
 use Hal\Component\Result\ResultCollection;
 
 require_once __DIR__.'/HtmlRenderer.php';
+require_once __DIR__.'/Packagist.php';
 
 class ComposerExtension implements Extension {
 
@@ -28,13 +29,28 @@ class ComposerExtension implements Extension {
         // search compose.json files
         $finder = new Finder('json', $configuration->getPath()->getExcludedDirs());
         $files = $finder->find($configuration->getPath()->getBasePath());
-        var_dump($files);
         foreach($files as $filename) {
             if(!preg_match('/composer\.json|composer-dist\.json/', $filename)) {
                 continue;
             }
             $this->datas = (object) json_decode(file_get_contents($filename));
             break;
+        }
+
+        // search infos about package on packagist
+        $packagist = new Packagist();
+        $reqs = $this->datas->require;
+        $this->datas->require = array();
+        foreach($reqs as $requirement => $version) {
+            $package = $packagist->get($requirement);
+            $this->datas->require[$requirement] = (object) array(
+                'name' => $requirement,
+                'required' => $version,
+                'latest' => $package->latest,
+                'license' => $package->license,
+                'homepage' => $package->homepage,
+                'zip' => $package->zip,
+            );
         }
     }
 

@@ -44,7 +44,7 @@ class HtmlRenderer implements ReporterHtmlSummary {
      */
     public function renderHtml()
     {
-        if(!$this->datas->name) {
+        if(!$this->datas->require) {
             return <<<EOT
 <div class="tab" id="composer">
     <div class="row">
@@ -63,29 +63,33 @@ EOT;
         $html = <<<EOT
 <div class="tab" id="composer">
     <div class="row">
-        <div class="col-6">
+        <div class="col-12">
             <h3>Dependencies <small>({$nb})</small></h3>
             <table class="table table-striped">
+                <thead>
+                    <tr style="text-align:left;">
+                        <th>Package</th>
+                        <th>Required version</th>
+                        <th>Latest version</th>
+                        <th>License</th>
+                        <th></th>
+                    </tr>
+                </thead>
                 <tbody>
 EOT;
-        foreach($this->datas->require as $name => $version) {
-            $html .= "<tr><td>{$name}</td><td>{$version}</td></tr>";
+        foreach($this->datas->require as $package) {
+            $licenses = implode(',', $package->license);
+            $html .= "<tr>
+                <td><a href=\"{$package->homepage}\" target=\"_blank\">{$package->name}</a></td>
+                <td>{$package->required}</td>"
+                . ($package->latest ? "
+                    <td>{$package->latest}</td>
+                    <td>{$licenses}</td>
+                    <td><small><a href=\"{$package->zip}\">download zip</a></small></td>" : "<td></td><td></td><td></td>")
+                . "</tr>";
         }
         $html .= <<<EOT
                 </tbody>
-            </table>
-        </div>
-
-        <div class="col-3">
-            <h3>Authors</h3>
-            <table class="table table-striped">
-                <tbody>
-EOT;
-        foreach($this->datas->authors as $author) {
-            $html .= "<tr><td></td><td href=\"{$author->email}\">{$author->name}</td><td>{$author->role}</td></tr>";
-        }
-        $html .= <<<EOT
-            </tbody>
             </table>
         </div>
     </div>
