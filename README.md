@@ -2,7 +2,7 @@
 
 This plugin add Composer support directly in your [PhpMetrics](https://github.com/phpmetrics/phpmetrics) reports.
 
-![Screenshot of PhpMetricsComposerExtension](https://cloud.githubusercontent.com/assets/1076296/13907012/9eebfd58-eee4-11e5-8fe0-6c3b5f6c81a1.png "Screenshot of PhpMetricsComposerExtension")
+![Screenshot of PhpMetricsComposerExtension](https://cloud.githubusercontent.com/assets/1076296/13942681/589ab526-eff5-11e5-8a49-3f918e84e065.png "Screenshot of PhpMetricsComposerExtension")
 
 ## Installation
 
