@@ -8,8 +8,8 @@ This plugin add Composer support directly in your [PhpMetrics](https://github.co
 
 **As phar archive**:
 
-    wget https://cdn.rawgit.com/phpmetrics/ComposerExtension/composer-extension.phar 
-    phpmetrcs --plugins=composer-extension.phar --report-html=report.html <my-folder>
+    wget https://raw.githubusercontent.com/phpmetrics/ComposerExtension/master/composer-extension.phar
+    phpmetrics --plugins=composer-extension.phar --report-html=report.html <my-folder>
 
 or **with Composer**:
 
