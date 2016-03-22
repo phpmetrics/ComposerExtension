@@ -6,13 +6,16 @@ This plugin add Composer support directly in your [PhpMetrics](https://github.co
 
 ## Installation
 
-Clone this repository anywhere
+**As phar archive**:
 
-    git clone https://github.com/phpmetrics/PhpMetricsComposerExtension.git <my-folder>
-    
-Then run PhpMetrics (>1.10) with the `--plugins` option:
+    wget https://cdn.rawgit.com/phpmetrics/ComposerExtension/composer-extension.phar 
+    phpmetrcs --plugins=composer-extension.phar --report-html=report.html <my-folder>
 
-    phpmetrics --plugins="/<my-folder>/ComposerExtension.php"
+or **with Composer**:
+
+    composer require phpmetrics/phpmetrics phpmetrics/composer-extension
+    ./vendor/bin/phpmetrics --plugins=./vendor/phpmetrics/composer-extension/ComposerExtension.php --report-html=report.html <my-folder>
+
     
 ## License
 
